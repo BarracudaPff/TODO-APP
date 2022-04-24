@@ -76,7 +76,7 @@ public class UpdateNoteAdapter extends FirebaseRecyclerAdapter<Note, UpdateNoteA
                 public void onClick(View v) {
                     FirebaseDatabase.getInstance()
                             .getReference(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .child(note._id)
+                            .child(note.getId())
                             .removeValue();
                 }
             });
