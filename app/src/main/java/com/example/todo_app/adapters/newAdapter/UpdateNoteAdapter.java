@@ -49,6 +49,7 @@ public class UpdateNoteAdapter extends FirebaseRecyclerAdapter<Note, UpdateNoteA
 
 
     class NoteViewHolder extends RecyclerView.ViewHolder {
+        View rootView;
 
         Button showButton;
         TextView dateTextView;
@@ -62,17 +63,23 @@ public class UpdateNoteAdapter extends FirebaseRecyclerAdapter<Note, UpdateNoteA
             dateTextView = itemView.findViewById(R.id.dateTextView);
             titleTextView = itemView.findViewById(R.id.titleTextView);
             descriptionTextView = itemView.findViewById(R.id.descriptionTextView);
+            rootView = itemView;
         }
-
-
-
 
         public void bind(Note note) {
             titleTextView.setText(note.title);
             descriptionTextView.setText(note.description);
             dateTextView.setText(note.date);
 
-
+            rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FirebaseDatabase.getInstance()
+                            .getReference(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                            .child(note._id)
+                            .removeValue();
+                }
+            });
         }
     }
 }

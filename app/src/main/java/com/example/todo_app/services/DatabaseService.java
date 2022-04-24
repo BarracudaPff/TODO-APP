@@ -1,5 +1,6 @@
 package com.example.todo_app.services;
 
+import com.example.todo_app.ClassSnapshotParserWithID;
 import com.example.todo_app.models.Note;
 import com.example.todo_app.models.oldNote;
 import com.firebase.ui.database.ClassSnapshotParser;
@@ -17,11 +18,10 @@ public class DatabaseService {
 
     public static FirebaseRecyclerOptions<Note> getUserOptions() {
         Query query = getDatabase().getReference(FirebaseAuth.getInstance().getCurrentUser().getUid());
-        ClassSnapshotParser<Note> parser = new ClassSnapshotParser<>(Note.class);
+        ClassSnapshotParser<Note> parser = new ClassSnapshotParserWithID(Note.class);
 
         return new FirebaseRecyclerOptions.Builder<Note>()
                 .setQuery(query, parser)
                 .build();
     }
-
 }
